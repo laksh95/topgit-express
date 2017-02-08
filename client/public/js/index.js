@@ -13,6 +13,7 @@ $(function()
 				url:"http://localhost:3165/getRepo?company="+company+"&page="+page,
 				success:function(response)
 				{
+					if(response!="null"){
 					document.getElementById("list").innerHTML= "";
 					data=JSON.parse(response);
 					$.each(data, function(index,value)
@@ -22,7 +23,8 @@ $(function()
 						`<div class="media-body"><h5 class="content">`+data[index].name+`</h5><br /></div>`+
 						`<h6 class="content-desc">`+data[index].language+' | '+data[index].description+`</h6></li></div>`;
 						$("#list").append(list);
-					});						 
+					});	
+					}					 
 				},
 				error: function(request,status,error){
 						console.log(error+"error message");

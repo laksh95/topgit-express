@@ -19,6 +19,7 @@ exports.getRepo=function(req,res){
 		else
 		{
 			var data=JSON.parse(content).items;
+			if(data!=null){
 			for(var i=0;i<data.length;i++)
 			{
 				if(lodash.includes(data[i].full_name,company))
@@ -30,9 +31,12 @@ exports.getRepo=function(req,res){
 			i=(page-1)*10;
 			for(;i<page*10;i++)
 				sendItems.push(items[i]);
-			res.writeHead(200,{"Content-type":"text/plain"});
-			res.write(JSON.stringify(sendItems));
-			res.end();
+			res.send(JSON.stringify(sendItems));
+		}
+		else{
+			res.send("null");
+		}
+
 		}
 	});	
 }
