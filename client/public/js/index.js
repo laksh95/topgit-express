@@ -13,11 +13,15 @@ $(function()
 				url:"http://localhost:3165/getRepo?company="+company+"&page="+page,
 				success:function(response)
 				{
-					var status =JSON.parse(response);
-					if(response.sucess){
+					// try{
+						var status =JSON.parse(response);
+					// }catch(exp)}{
+					// 	document.getElementById('error').innerHTML="error reading data";
+					// }
+					if(status.sucess){
 						document.getElementById("error").innerHTML="";
 						document.getElementById("list").innerHTML= "";
-						data=JSON.parse(status.data);
+						data=status.data;
 						$.each(data, function(index,value)
 						{
 							var list=`<div class="result"><li class="media" style="list-style:none; padding:5px;">
@@ -96,7 +100,7 @@ $(function()
 						var status=JSON.parse(response);
 						if(status.success){
 							document.getElementById("list").innerHTML= "";
-							data=JSON.parse(status.data);
+							data=status.data;
 							$.each(data, function(index,value)
 							{
 								var list=`<div class="result"><li class="media" style="list-style:none; padding:5px;">

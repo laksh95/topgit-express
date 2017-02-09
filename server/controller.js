@@ -1,12 +1,16 @@
 var fs=require('fs');
 var path=require('path');
 var lodash=require('lodash');
+function readFile(pathname,type,callback)
+{
+	fs.readFile(pathname,type,callback);
+}
 exports.getRepo=function(req,res){
 	var company=req.query.company;
 	var page=req.query.page;
 	var items=[];
-	fs.readFile(path.resolve(__dirname  +"/data.json"),"utf8",function(err,content)
-	{
+	readFile(path.resolve(__dirname  +"/data.json"),"utf8",readHandler);
+	function readHandler(err,content){
 		var response={
 			sucess:"",
 			data:"",
@@ -20,8 +24,13 @@ exports.getRepo=function(req,res){
 		}
 		else
 		{
-
-			var data=JSON.parse(content).items;
+			try{
+				var data=JSON.parse(content).items;
+			}catch(exp){
+				response.sucess=false;
+				response.msg="500 internal error";
+				res.send(JSON.stringify(response));
+			}
 			if(data!=null){
 			for(var i=0;i<data.length;i++)
 			{
@@ -43,5 +52,9 @@ exports.getRepo=function(req,res){
 		}
 
 		}
-	});	
+
+	}
+	// fs.readFile(path.resolve(__dirname  +"/data.json"),"utf8",function(err,content)
+	// {
+	// 		});	
 }
