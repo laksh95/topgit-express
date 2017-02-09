@@ -13,17 +13,22 @@ $(function()
 				url:"http://localhost:3165/getRepo?company="+company+"&page="+page,
 				success:function(response)
 				{
-					if(response!="null"){
-					document.getElementById("list").innerHTML= "";
-					data=JSON.parse(response);
-					$.each(data, function(index,value)
-					{
-						var list=`<div class="result"><li class="media" style="list-style:none; padding:5px;">
-						<img src="img/head.jpg" class="d-flex mr-3"  style="float:left;width:64px;height:64px;">`+
-						`<div class="media-body"><h5 class="content">`+data[index].name+`</h5><br /></div>`+
-						`<h6 class="content-desc">`+data[index].language+' | '+data[index].description+`</h6></li></div>`;
-						$("#list").append(list);
-					});	
+					var status =JSON.parse(response);
+					if(response.sucess){
+						document.getElementById("error").innerHTML="";
+						document.getElementById("list").innerHTML= "";
+						data=JSON.parse(status.data);
+						$.each(data, function(index,value)
+						{
+							var list=`<div class="result"><li class="media" style="list-style:none; padding:5px;">
+							<img src="img/head.jpg" class="d-flex mr-3"  style="float:left;width:64px;height:64px;">`+
+							`<div class="media-body"><h5 class="content">`+data[index].name+`</h5><br /></div>`+
+							`<h6 class="content-desc">`+data[index].language+' | '+data[index].description+`</h6></li></div>`;
+							$("#list").append(list);
+						});	
+					}
+					else{
+						document.getElementById("error").innerHTML=status.msg;
 					}					 
 				},
 				error: function(request,status,error){
@@ -42,6 +47,7 @@ $(function()
 			if(""==search.trim())
 			{
 				document.getElementById("list").innerHTML= "";
+				document.getElementById("error").innerHTML="";
 				$.each(data, function(index,value)
 				{
 					var list=`<div class="result"><li class="media" style="list-style:none; padding:5px;">
@@ -56,7 +62,7 @@ $(function()
 				document.getElementById("list").innerHTML="";
 				$.each(data, function(index,value)
 				{
-					if(search==data[index].language)
+					if(search===data[index].language)
 					{
 						flag=1;
 						slist=`<div class="result"><li class="media" style="list-style:none; padding:5px;">
@@ -85,19 +91,24 @@ $(function()
 			$.ajax(
 				{
 					url:"http://localhost:3165/getRepo?company="+company+"&page="+page,
-					// url:"https://api.github.com/search/repositories?q="+company+"&page=1&per_page=10",
 					success:function(response)
 					{
-						document.getElementById("list").innerHTML= "";
-						data=JSON.parse(response);
-						$.each(data, function(index,value)
-						{
-							var list=`<div class="result"><li class="media" style="list-style:none; padding:5px;">
-							<img src="img/head.jpg" class="d-flex mr-3"  style="float:left;width:64px;height:64px;">`+
-							`<div class="media-body"><h5 class="content">`+data[index].name+`</h5><br /></div>`+
-							`<h6 class="content-desc">`+data[index].language+' | '+data[index].description+`</h6></li></div>`;
-							$("#list").append(list);
-						});						 
+						var status=JSON.parse(response);
+						if(status.success){
+							document.getElementById("list").innerHTML= "";
+							data=JSON.parse(status.data);
+							$.each(data, function(index,value)
+							{
+								var list=`<div class="result"><li class="media" style="list-style:none; padding:5px;">
+								<img src="img/head.jpg" class="d-flex mr-3"  style="float:left;width:64px;height:64px;">`+
+								`<div class="media-body"><h5 class="content">`+data[index].name+`</h5><br /></div>`+
+								`<h6 class="content-desc">`+data[index].language+' | '+data[index].description+`</h6></li></div>`;
+								$("#list").append(list);
+							});	
+						}
+						else{
+							document.getElementById("error").innerHTML=status.msg;
+						}					 
 					},
 					error: function(request,status,error){
 							console.log(error);

@@ -1,5 +1,6 @@
 var path=require('path');
-var init=function(app,express){
+var express=require('express');
+var init=function(app){
 
 	app.use(express.static(path.resolve(__dirname + "/../../client/public")));
 }
