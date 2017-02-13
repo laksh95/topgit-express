@@ -32,29 +32,26 @@ exports.getRepo=function(req,res){
 				res.send(JSON.stringify(response));
 			}
 			if(data!=null){
-			for(var i=0;i<data.length;i++)
-			{
-				if(lodash.includes(data[i].full_name,company))
-				{	
-					items.push(data[i]);
+				for(var i=0;i<data.length;i++)
+				{
+					if(lodash.includes(data[i].full_name,company))
+					{	
+						items.push(data[i]);
+					}
 				}
+				var sendItems=[];
+				i=(page-1)*10;
+				for(;i<page*10;i++)
+					sendItems.push(items[i]);
+				response.success=true;
+				response.data=sendItems;
+				res.send(JSON.stringify(response));
 			}
-			var sendItems=[];
-			i=(page-1)*10;
-			for(;i<page*10;i++)
-				sendItems.push(items[i]);
-			response.success=true;
-			response.data=sendItems;
-			res.send(JSON.stringify(response));
-		}
-		else{
-			res.send("null");
-		}
-
+			else{
+				res.send("null");
+			}
 		}
 
 	}
-	// fs.readFile(path.resolve(__dirname  +"/data.json"),"utf8",function(err,content)
-	// {
-	// 		});	
+
 }
