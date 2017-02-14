@@ -1,0 +1,1 @@
+module.exports= "postgres://postgres:password@localhost:5432/company";
