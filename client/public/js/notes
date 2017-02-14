@@ -1,7 +1,0 @@
-if(req.method==get)
-{
-if(req.url=="/")
-{
-	res.sendFile("filename");
-}
-}
