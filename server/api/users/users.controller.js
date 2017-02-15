@@ -9,12 +9,18 @@ client.connect(function(err){
 });
 
 exports.submitInfo=function(req,res){
+	console.log("hello world");
+	console.log(req.body.fsname, req.body.lsname, req.body.uemail, req.body.upasswd);
+	console.log("ok");
 	var query=client.query("insert into users values($1,$2,$3,$4);",
-		[req.body.fname, req.body.lname, req.body.useremail, req.body.passwd],function(err,result){
+		[req.body.fsname, req.body.lsname, req.body.uemail, req.body.upasswd],function(err,result){
+			console.log(result);
 			if(err)
 				throw err;
 			else{
-				res.sendFile(path.resolve(__dirname + "/../../../client/submit.html"));
+				console.log("succsss");	
+				res.send("success");
+				
 			}
 			client.end(function(err){
 				if(err){

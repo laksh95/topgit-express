@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 	<title>Database Connection</title>
+	<script type="text/javascript" src='js/index.js'></script>
 </head>
 <body>
-	<form action="/api/users/userInfo" method="post">
-		First Name: <input type="text" name="fname" id="fsname">
+	<form>
+		First Name: <input type="text" name="fname" id="fname">
 		<br />
 		Last Name: <input type="text" name="lname" id="lname">
 		<br />
@@ -13,7 +15,10 @@
 		<br />
 		Password: <input type="password" name="passwd" id="passwd">
 		<br />
-		<input type="submit" name="submit" value="Submit">
+		<input type="submit" id="submit" name="submit" value="Submit">
 	</form>
+	<div>
+		<input type="button" value="show Users" id="show" onclick="">
+	</div>
 </body>
 </html>
