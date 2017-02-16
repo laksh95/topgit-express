@@ -1,18 +1,21 @@
 var Sequelize=require('sequelize');
+var sequelize=new Sequelize('postgres://postgres:password@localhost:5432/users');
 var init=function(cb){
-	var sequelize=new Sequelize('postgres://postgres:password@localhost:5432/users');
-	var loginCredentials=sequelize.define('login',{
+	var address=sequelize.define('address',{
 		id:{
 			type:Sequelize.INTEGER,
 			primaryKey:true,
 			autoIncrement:true
 		},
-		username:{
+		addressLine:{
 			type:Sequelize.STRING,
-			allowNull:false,
-			unique:true
+			allowNull:false
 		},
-		password:{
+		city:{
+			type:Sequelize.STRING,
+			allowNull:false
+		},
+		state:{
 			type:Sequelize.STRING,
 			allowNull:false
 		},
@@ -21,7 +24,7 @@ var init=function(cb){
 			default:true
 		}
 	});
-	loginCredentials.sync();	
+	address.sync();
 	cb();
 }
 module.exports=init;
