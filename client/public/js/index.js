@@ -9,8 +9,7 @@ $(function(){
 		type:'post',
 		data:{
 			"fsname":fname,
-			"lsname":lname,
-			"uemail":email,
+
 			"upasswd":passwd
 		},
 		success:function(response){
