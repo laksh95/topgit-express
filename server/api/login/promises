@@ -1,0 +1,10 @@
+promises:
+states:
+	pending
+	resolve
+	reject
+var a=function(){
+	if(bool)
+		return Promise.Resolve()
+	return Promise.Reject()
+}

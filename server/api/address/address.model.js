@@ -1,6 +1,5 @@
-var Sequelize=require('sequelize');
-var sequelize=new Sequelize('postgres://postgres:password@localhost:5432/users');
-var init=function(cb){
+var init=function(sequelize,Sequelize){
+	console.log()
 	var address=sequelize.define('address',{
 		id:{
 			type:Sequelize.INTEGER,
@@ -23,8 +22,18 @@ var init=function(cb){
 			type:Sequelize.BOOLEAN,
 			default:true
 		}
+	},{
+		classMethods:{
+			associate:function(model){
+				var Login=model.login;
+				var Address=model.address;
+				Login.hasMany(Address);
+			}
+
+		}
+
 	});
-	address.sync();
-	cb();
+	sequelize.sync();
+	return address;
 }
 module.exports=init;
