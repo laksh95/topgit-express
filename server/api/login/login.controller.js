@@ -1,9 +1,8 @@
-var pg=require('pg');
 var path=require('path');
 var database=require('./../../config/database');
 console.log("controller");
 var model=require('./login.model');
-	var loginFunc={
+var loginFunc={
 	checkInfo:function(req,res){
 		
 	},

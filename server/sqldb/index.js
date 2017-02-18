@@ -19,6 +19,6 @@ var init=function(){
 	database.sequelize.sync();
 	// users.hasMany(address);
 	// address.belongsTo(users);
-	// sequelize.sync({force:true});
+	// database.sequelize.sync({force:true});
 }
 module.exports=init;
