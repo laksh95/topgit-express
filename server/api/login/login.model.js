@@ -1,4 +1,3 @@
-
 var init=function(sequelize,Sequelize){
 	console.log('login model called');
 	var login= sequelize.define('login',{
@@ -18,12 +17,12 @@ var init=function(sequelize,Sequelize){
 		},
 		status:{
 			type:Sequelize.BOOLEAN,
-			default:true
-		}
+			defaultValue:true
+					}
 	},{
 	classMethods:{
-		submitUser:function(data){
-			login.create({
+		submitUser:function(db,data){
+			db.login.create({
 				username:data.name,
 				password:data.password
 			}).then(function(){

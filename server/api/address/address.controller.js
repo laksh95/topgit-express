@@ -1,5 +1,8 @@
 var path=require('path');
 var database=require('./../../config/database');
+var sqldb = require('./../../sqldb');
+var db=sqldb();
+console.log(db);
 console.log("controller from address");
 var model=require('./address.model');
 var addressFunc={
@@ -15,7 +18,7 @@ var addressFunc={
 			loginid:loginid
 		}
 		console.log(data);
-		model(database.sequelize,database.Sequelize).submitAddress(data);
+		model(database.sequelize,database.Sequelize).submitAddress(db,data);
 	}
 }
 module.exports=addressFunc;

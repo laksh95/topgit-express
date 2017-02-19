@@ -6,7 +6,7 @@ var init=function(sequelize,Sequelize){
 			primaryKey:true,
 			autoIncrement:true
 		},
-		addressLine:{
+		address_line:{
 			type:Sequelize.STRING,
 			allowNull:false
 		},
@@ -20,25 +20,27 @@ var init=function(sequelize,Sequelize){
 		},
 		status:{
 			type:Sequelize.BOOLEAN,
-			default:true
+			defaultValue:true
 		}
 	},{
 		classMethods:{
 			associate:function(model){
 				var Login=model.login;
 				var Address=model.address;
-				Login.hasOne(Address);
-				Address.belongsTo(Login);
+				Login.hasMany(Address,{
+					foreignKey:"login_id"
+				});
+				// Address.belongsTo(Login);
 			},
-			submitAddress:function(data){
-				console.log('submitAddress called');
-				address.create({
-					addressLine:data.addressLine,
+			submitAddress:function(db,data){
+				console.log('submitAddress called',data);
+				db.address.create({
+					address_line:data.addressLine,
 					city:data.city,
 					state:data.state,
-					loginId:10
-				}).then(function(){
-					console.log('inserted successfully');
+					login_id:data.loginid
+				}	).then(function(data){	
+					console.log('inserted successfully',data);
 				})
 			}
 
