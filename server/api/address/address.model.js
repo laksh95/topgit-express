@@ -30,9 +30,8 @@ var init=function(sequelize,Sequelize){
 				Login.hasMany(Address,{
 					foreignKey:"login_id"
 				});
-				// Address.belongsTo(Login);
 			},
-			submitAddress:function(db,data){
+			submitAddress:function(db,data,cb){
 				console.log('submitAddress called',data);
 				db.address.create({
 					address_line:data.addressLine,
@@ -41,9 +40,47 @@ var init=function(sequelize,Sequelize){
 					login_id:data.loginid
 				}	).then(function(data){	
 					console.log('inserted successfully',data);
+					cb(data);
+				});
+			},
+			getAddress: function(db,loginid,cb){
+				db.address.findAll({
+					attributes:['address_line','city','state'],
+					where:{
+						login_id:loginid
+					}
+				}).then(function(data){
+					console.log(data);
+					var addressDetails=data[0].dataValues;
+					cb(addressDetails);
+				});
+				console.log('get address called');
+
+			},
+			updateAddress:function(db,data,cb){
+				db.address.update({
+					address_line:data.addressLine,
+					city:data.city,
+					state:data.state	
+				},{
+					where:{
+						login_id:data.loginid
+					}
+				}).then(function(data){
+					console.log(data);
+					cb(data);
+				})
+			},
+			deleteAddress:function(db,loginid,cb){
+				db.address.destroy({
+					where:{
+						login_id:loginid,
+						status:true
+					}
+				}).then(function(data){
+					cb(data);
 				})
 			}
-
 		}
 
 	});
