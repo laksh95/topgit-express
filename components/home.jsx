@@ -1,16 +1,19 @@
 import React from 'react'
 import {Tabs,Tab} from 'react-bootstrap'
+import Menu from './Menu.jsx'
 class Home extends React.Component{
 	constructor(props) {
 		super(props);
 
 		this.state={
 			dataConfig:[],
+			foodItems:[],
 			key:0
 		}
 		this.getGroupName=this.getGroupName.bind(this);
 		this.handleSelect=this.handleSelect.bind(this);
 		this.getGroupName();
+		this.getFoodItems()
 	}
 	getGroupName(){
 		 $.getJSON('http://ec2-54-165-240-14.compute-1.amazonaws.com:3000/api/foodGroup').then((data) => {
@@ -20,18 +23,39 @@ class Home extends React.Component{
 
 		})
 	}
-	handleSelect(selectedTab){
-		this.setState
+	componentWillMount() {
+		
+	}
+	getFoodItems(){
+		console.log('inside function')
+		$.getJSON("http://ec2-54-165-240-14.compute-1.amazonaws.com:3000/api/foodItem").then((data)=>{
+			this.setState({
+				foodItems:data
+			})
+			console.log(data, this.props.currentKey);
+		})
 
+	}
+	handleSelect(selectedTab){
+		this.setState({
+			key:selectedTab
+		})
 	}
 	render(){
 		return(	
-		<Tabs defaultActiveKey={1} id="menuTabs" onSelect={this.handleSelect} activeKey={this.state.key}>{
-			this.state.dataConfig.map(function(data,i){
-				return(<Tab eventKey={i} key={i} title={data.food_group_name}></Tab>)
-			})
-		}
-		</Tabs>
+			<div className="container">
+				<Tabs defaultActiveKey={1} id="menuTabs" onSelect={this.handleSelect} activeKey={this.state.key}>{
+					/***************************returning <Tab> and <Menu> together so that each
+					***************************tab menu has its own food menu, i.e each tab menu 
+					***************************has its own child. Sending food_group_id so that ******************************/
+					this.state.dataConfig.map(function(data,i){  
+						return(<Tab eventKey={i} key={i} title={data.food_group_name}>
+								<Menu currentGroup={data.food_group_id}/></Tab>
+							)
+					})
+				}
+				</Tabs>	
+			</div>
 		)
 	}
 }
