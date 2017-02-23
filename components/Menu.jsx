@@ -1,14 +1,16 @@
 import React from 'react'
 import {Thumbnail, Grid, Row, Col} from 'react-bootstrap'
-import {Button} from 'react-bootstrap'
+import {Button, Glyphicon} from 'react-bootstrap'
 class Menu extends React.Component{
 	constructor(props) {
 		super(props);
 		this.props=props;
 		this.state={
 			foodItems:[],
-			foodMap:[]
+			foodMap:[],
+			cart:[]
 		}
+		this.addItem=this.addItem.bind(this)
 	}
 
 	getFoodItems(){
@@ -17,23 +19,19 @@ class Menu extends React.Component{
 				foodItems:data
 			})
 			this.getSelectedItems();
-			console.log(this.props.currentGroup);
 		})
 	}
 	getSelectedItems(){
 		var foodItem=[];
 		var groupID=this.props.currentGroup;
-		console.log(this.state.foodItems)
 		this.state.foodItems.map(function(data,index){
 			if(data.food_group_id==groupID){
 				foodItem.push(data);
-				console.log(foodItem[index])
 			}
 		})
 		this.setState({
 			foodMap:foodItem
 		})
-		console.log(this.state.foodMap);
 	}
 	/*****************calling getFoodItems() in componentWillMount()********************************** 
 	******************so that before the Component is rendered api is called*************************/
@@ -41,7 +39,34 @@ class Menu extends React.Component{
 		this.getFoodItems();
 		
 	}
+	addItem(data){
+		var items = this.state.foodMap; 
+		var cart = this.state.cart ;
+		var price= data.food_item_price;
+		var count = 0 
+		for(var i in cart){
+			console.log(cart[i].itemName)
+			if(cart[i].itemID===data.food_item_id){
+				count =1 
+				cart[i].qty=cart[i].qty+1 
+			}
+		}
+		if(count==0){
+			cart.push({
+				"itemID":data.food_item_id,
+				"itemName": data.food_item_name ,
+				"qty" : 1,
+				"price":price
+			});	
+		}
+		this.setState({
+			cart:cart
+		})
+		console.log(this.state.cart);
+	}
+
 	render(){
+		var that=this;
 		return(
 			<div>
 				<Grid>
@@ -53,7 +78,9 @@ class Menu extends React.Component{
 											<h3>{data.food_item_name}</h3>
 											<h5>${data.food_item_price}</h5>
 											<p>
-												<Button bsStyle="primary">Add</Button>
+												<Button onClick={
+													() => that.addItem(data)
+												}><Glyphicon glyph="plus" /></Button>
 											</p>
 										</Thumbnail>
 									</Col>

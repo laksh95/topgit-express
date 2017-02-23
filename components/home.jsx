@@ -27,12 +27,10 @@ class Home extends React.Component{
 		
 	}
 	getFoodItems(){
-		console.log('inside function')
 		$.getJSON("http://ec2-54-165-240-14.compute-1.amazonaws.com:3000/api/foodItem").then((data)=>{
 			this.setState({
 				foodItems:data
 			})
-			console.log(data, this.props.currentKey);
 		})
 
 	}

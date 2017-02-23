@@ -2,11 +2,16 @@
 	text-moderation:none;
 }*/
 
-.headerText{			/*header text: foodd menu*/
-	margin-top:10px;
-	text-align: center;
+.menuButton{
+	float:left;
+}
+.cart{
+	float:right;
 }
 .headerBox{
-	border-bottom: 1px solid black;
+	/*border-bottom: 1px solid black;*/
 	font-family: verdana;
+	text-align:center;
+	font-size: 22px;
+	background-color: #E0E0E0;
 }
