@@ -1,0 +1,12 @@
+/*nav > ul > li{
+	text-moderation:none;
+}*/
+
+.headerText{			/*header text: foodd menu*/
+	margin-top:10px;
+	text-align: center;
+}
+.headerBox{
+	border-bottom: 1px solid black;
+	font-family: verdana;
+}
