@@ -33,6 +33,9 @@ class Menu extends React.Component{
 			foodMap:foodItem
 		})
 	}
+	componentWillReceiveProps(nextProps) {
+		this.props=nextProps
+	}
 	/*****************calling getFoodItems() in componentWillMount()********************************** 
 	******************so that before the Component is rendered api is called*************************/
 	componentWillMount() {
@@ -40,15 +43,13 @@ class Menu extends React.Component{
 		
 	}
 	addItem(data){
-		var items = this.state.foodMap; 
 		var cart = this.state.cart ;
 		var price= data.food_item_price;
 		var count = 0 
 		for(var i in cart){
-			console.log(cart[i].itemName)
 			if(cart[i].itemID===data.food_item_id){
 				count =1 
-				cart[i].qty=cart[i].qty+1 
+				cart[i].qty=cart[i].qty+1
 			}
 		}
 		if(count==0){
@@ -56,13 +57,14 @@ class Menu extends React.Component{
 				"itemID":data.food_item_id,
 				"itemName": data.food_item_name ,
 				"qty" : 1,
-				"price":price
+				"price":price,
 			});	
 		}
 		this.setState({
 			cart:cart
 		})
-		console.log(this.state.cart);
+		var tmp=this.state.cart;
+		this.props.updateCart(tmp)
 	}
 
 	render(){

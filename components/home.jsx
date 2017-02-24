@@ -4,7 +4,7 @@ import Menu from './Menu.jsx'
 class Home extends React.Component{
 	constructor(props) {
 		super(props);
-
+		this.props=props;
 		this.state={
 			dataConfig:[],
 			foodItems:[],
@@ -23,8 +23,8 @@ class Home extends React.Component{
 
 		})
 	}
-	componentWillMount() {
-		
+	componentWillReceiveProps(nextProps) {
+		this.props=nextProps
 	}
 	getFoodItems(){
 		$.getJSON("http://ec2-54-165-240-14.compute-1.amazonaws.com:3000/api/foodItem").then((data)=>{
@@ -40,6 +40,7 @@ class Home extends React.Component{
 		})
 	}
 	render(){
+		var that=this;
 		return(	
 			<div className="container">
 				<Tabs defaultActiveKey={1} id="menuTabs" onSelect={this.handleSelect} activeKey={this.state.key}>{
@@ -48,7 +49,7 @@ class Home extends React.Component{
 					***************************has its own child. Sending food_group_id so that ******************************/
 					this.state.dataConfig.map(function(data,i){  
 						return(<Tab eventKey={i} key={i} title={data.food_group_name}>
-								<Menu currentGroup={data.food_group_id}/></Tab>
+								<Menu currentGroup={data.food_group_id} updateCart={that.props.updateCart}/></Tab>
 							)
 					})
 				}

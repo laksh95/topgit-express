@@ -1,7 +1,9 @@
 /*nav > ul > li{
 	text-moderation:none;
 }*/
-
+.borderLine{
+	border-bottom: 1px solid;
+}
 .menuButton{
 	float:left;
 }
