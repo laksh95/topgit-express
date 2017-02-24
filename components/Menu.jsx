@@ -43,28 +43,8 @@ class Menu extends React.Component{
 		
 	}
 	addItem(data){
-		var cart = this.state.cart ;
-		var price= data.food_item_price;
-		var count = 0 
-		for(var i in cart){
-			if(cart[i].itemID===data.food_item_id){
-				count =1 
-				cart[i].qty=cart[i].qty+1
-			}
-		}
-		if(count==0){
-			cart.push({
-				"itemID":data.food_item_id,
-				"itemName": data.food_item_name ,
-				"qty" : 1,
-				"price":price,
-			});	
-		}
-		this.setState({
-			cart:cart
-		})
-		var tmp=this.state.cart;
-		this.props.updateCart(tmp)
+		
+		this.props.updateCart(data)
 	}
 
 	render(){

@@ -13,9 +13,24 @@ class App extends React.Component{
 	componentWillReceiveProps(nextProps) {
 		this.props=nextProps
 	}
-	updateCart(cart){
-		/*var tmp=this.state.cartMember;
-		tmp.push(cart)*/
+	updateCart(data){/*updating the cart item here so that when the menu group changes cart items remain intact*/
+		var cart = this.state.cartMember ;
+		var price= data.food_item_price;
+		var count = 0 
+		for(var i in cart){
+			if(cart[i].itemID===data.food_item_id){
+				count =1 
+				cart[i].qty=cart[i].qty+1
+			}
+		}
+		if(count==0){
+			cart.push({
+				"itemID":data.food_item_id,
+				"itemName": data.food_item_name ,
+				"qty" : 1,
+				"price":price,
+			});	
+		}
 		this.setState({
 			cartMember:cart
 		})
