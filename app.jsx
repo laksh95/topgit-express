@@ -16,14 +16,15 @@ class App extends React.Component{
 	updateCart(data){/*updating the cart item here so that when the menu group changes cart items remain intact*/
 		var cart = this.state.cartMember ;
 		var price= data.food_item_price;
-		var count = 0 
-		for(var i in cart){
-			if(cart[i].itemID===data.food_item_id){
+		var count = 0
+		const ZERO=0 
+		for(let index in cart){
+			if(cart[index].itemID===data.food_item_id){
 				count =1 
-				cart[i].qty=cart[i].qty+1
+				cart[index].qty=cart[index].qty+1
 			}
 		}
-		if(count==0){
+		if(ZERO===count){
 			cart.push({
 				"itemID":data.food_item_id,
 				"itemName": data.food_item_name ,
@@ -36,10 +37,10 @@ class App extends React.Component{
 		})
 	}
 	render(){
-		var tmp=this.state.cartMember
+		let cartItem=this.state.cartMember
 		return(
 			<div>
-				<Header cart={tmp}/>
+				<Header cart={cartItem}/>
 				<Home updateCart={this.updateCart}/>
 			</div>
 		);

@@ -1,6 +1,7 @@
 import React from 'react'
 import {Glyphicon} from 'react-bootstrap'
-import {Button, ButtonToolbar, ButtonGroup} from 'react-bootstrap'
+import {ButtonToolbar, ButtonGroup} from 'react-bootstrap'
+import { Button } from 'reactstrap'
 import Menu from './Menu.jsx'
 import Cart from './cart.jsx'
 import {Modal} from 'react-bootstrap'
@@ -18,10 +19,10 @@ class Header extends React.Component{
 	}
 	totalQuantity(){
 		console.log('total quantity called')
-		var tmp=this.props.cart
-		var quant=0
-		for(var i in tmp){
-			quant=quant+tmp[i].qty
+		let cartItems=this.props.cart
+		let quant=0
+		for(let index in cartItems){
+			quant=quant+cartItems[index].qty
 		}
 		return quant
 	}

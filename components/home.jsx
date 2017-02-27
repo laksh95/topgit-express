@@ -40,13 +40,14 @@ class Home extends React.Component{
 		})
 	}
 	render(){
-		var that=this;
+		let that=this;
 		return(	
 			<div className="container">
 				<Tabs defaultActiveKey={1} id="menuTabs" onSelect={this.handleSelect} activeKey={this.state.key}>{
 					/***************************returning <Tab> and <Menu> together so that each
 					***************************tab menu has its own food menu, i.e each tab menu 
-					***************************has its own child. Sending food_group_id so that ******************************/
+					***************************has its own child. Sending food_group_id so that 
+					**************************************************************************/
 					this.state.dataConfig.map(function(data,i){  
 						return(<Tab eventKey={i} key={i} title={data.food_group_name}>
 								<Menu currentGroup={data.food_group_id} updateCart={that.props.updateCart}/></Tab>
