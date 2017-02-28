@@ -1,6 +1,7 @@
 import React from 'react';
 import Home from './components/home.jsx'
 import Header from './components/header.jsx'
+
 class App extends React.Component{
 	constructor(props) {
 		super(props);
