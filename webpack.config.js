@@ -1,10 +1,10 @@
 var path=require('path')
 var SRC_DIR=path.resolve(__dirname+"/src")
-var DEST_DIR=path.resolve(__dirname+"/dist")
+var DIST_DIR=path.resolve(__dirname+"/dist")
 var config={
     entry: SRC_DIR + "/app/index.jsx",
     output: {
-        path: DEST_DIR + "/app",
+        path: DIST_DIR + "/app",
         filename: "bundle.js",
         publicPath: "/app/"
     },
