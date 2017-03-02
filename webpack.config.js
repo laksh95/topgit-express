@@ -2,7 +2,7 @@ var path=require('path')
 var SRC_DIR=path.resolve(__dirname+"/src")
 var DIST_DIR=path.resolve(__dirname+"/dist")
 var config={
-    entry: SRC_DIR + "/app/index.jsx",
+    entry: SRC_DIR + "/app/index.js",
     output: {
         path: DIST_DIR + "/app",
         filename: "bundle.js",

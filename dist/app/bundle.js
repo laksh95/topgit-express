@@ -42,9 +42,9 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/*!***************************!*\
-  !*** ./src/app/index.jsx ***!
-  \***************************/
+/*!**************************!*\
+  !*** ./src/app/index.js ***!
+  \**************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59,23 +59,23 @@
 	
 	var _redux = __webpack_require__(/*! redux */ 189);
 	
-	var _index = __webpack_require__(/*! ./reducer/index.jsx */ 216);
+	var _reducers = __webpack_require__(/*! ./reducers */ 216);
 	
-	var _index2 = _interopRequireDefault(_index);
+	var _reducers2 = _interopRequireDefault(_reducers);
 	
-	var _app = __webpack_require__(/*! ./components/app.jsx */ 219);
+	var _App = __webpack_require__(/*! ./components/App */ 219);
 	
-	var _app2 = _interopRequireDefault(_app);
+	var _App2 = _interopRequireDefault(_App);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var store = (0, _redux.createStore)(_index2.default);
+	var store = (0, _redux.createStore)(_reducers2.default);
 	
 	(0, _reactDom.render)(_react2.default.createElement(
-	    _reactRedux.Provider,
-	    { store: store },
-	    _react2.default.createElement(_app2.default, null)
-	), window.document.getElementById('app'));
+	  _reactRedux.Provider,
+	  { store: store },
+	  _react2.default.createElement(_App2.default, null)
+	), document.getElementById('app'));
 
 /***/ },
 /* 1 */
@@ -24415,92 +24415,89 @@
 /***/ },
 /* 216 */
 /*!***********************************!*\
-  !*** ./src/app/reducer/index.jsx ***!
+  !*** ./src/app/reducers/index.js ***!
   \***********************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _redux = __webpack_require__(/*! redux */ 189);
 	
-	var _todos = __webpack_require__(/*! ./todos.jsx */ 217);
+	var _todos = __webpack_require__(/*! ./todos */ 217);
 	
 	var _todos2 = _interopRequireDefault(_todos);
 	
-	var _visibilityFilter = __webpack_require__(/*! ./visibilityFilter.jsx */ 218);
+	var _visibilityFilter = __webpack_require__(/*! ./visibilityFilter */ 218);
 	
 	var _visibilityFilter2 = _interopRequireDefault(_visibilityFilter);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var todoApp = (0, _redux.combineReducers)({
-	    todos: _todos2.default,
-	    visibilityFilter: _visibilityFilter2.default
-	}); /**
-	     * Created by mustang on 01/03/17.*/
+	  todos: _todos2.default,
+	  visibilityFilter: _visibilityFilter2.default
+	});
+	
 	exports.default = todoApp;
 
 /***/ },
 /* 217 */
 /*!***********************************!*\
-  !*** ./src/app/reducer/todos.jsx ***!
+  !*** ./src/app/reducers/todos.js ***!
   \***********************************/
 /***/ function(module, exports) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
-	/**
-	 * Created by mustang on 01/03/17.
-	 */
 	var todo = function todo() {
-	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-	    var action = arguments[1];
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	  var action = arguments[1];
 	
-	    switch (action.type) {
-	        case 'ADD_TODO':
-	            return {
-	                id: action.id,
-	                text: action.text,
-	                completed: false
-	            };
-	        case 'TOGGLE_TODO':
-	            if (state.id !== action.id) {
-	                return state;
-	            }
+	  switch (action.type) {
+	    case 'ADD_TODO':
+	      return {
+	        id: action.id,
+	        text: action.text,
+	        completed: false
+	      };
+	    case 'TOGGLE_TODO':
+	      if (state.id !== action.id) {
+	        return state;
+	      }
 	
-	            return Object.assign({}, state, {
-	                completed: !state.completed
-	            });
+	      return Object.assign({}, state, {
+	        completed: !state.completed
+	      });
 	
-	        default:
-	            return state;
-	    }
+	    default:
+	      return state;
+	  }
 	};
 	
 	var todos = function todos() {
-	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-	    var action = arguments[1];
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+	  var action = arguments[1];
 	
-	    switch (action.type) {
-	        case 'ADD_TODO':
-	            return [].concat(_toConsumableArray(state), [todo(undefined, action)]);
-	        case 'TOGGLE_TODO':
-	            return state.map(function (t) {
-	                return todo(t, action);
-	            });
-	        default:
-	            return state;
-	    }
+	  switch (action.type) {
+	    case 'ADD_TODO':
+	      return [].concat(_toConsumableArray(state), [todo(undefined, action)]);
+	    case 'TOGGLE_TODO':
+	      return state.map(function (t) {
+	        return todo(t, action);
+	      });
+	    default:
+	      return state;
+	  }
 	};
 	
 	exports.default = todos;
@@ -24508,121 +24505,119 @@
 /***/ },
 /* 218 */
 /*!**********************************************!*\
-  !*** ./src/app/reducer/visibilityFilter.jsx ***!
+  !*** ./src/app/reducers/visibilityFilter.js ***!
   \**********************************************/
 /***/ function(module, exports) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
-	/**
-	 * Created by mustang on 01/03/17.
-	 */
-	var visibilityFilte = function visibilityFilte() {
-	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'SHOW_ALL';
-	    var action = arguments[1];
+	var visibilityFilter = function visibilityFilter() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'SHOW_ALL';
+	  var action = arguments[1];
 	
-	    switch (action.type) {
-	        case 'SET_VISIBLITY_FILTER':
-	            return action.filter;
-	        default:
-	            return state;
-	    }
+	  switch (action.type) {
+	    case 'SET_VISIBILITY_FILTER':
+	      return action.filter;
+	    default:
+	      return state;
+	  }
 	};
-	exports.default = visibilityFilte;
+	
+	exports.default = visibilityFilter;
 
 /***/ },
 /* 219 */
-/*!************************************!*\
-  !*** ./src/app/components/app.jsx ***!
-  \************************************/
+/*!***********************************!*\
+  !*** ./src/app/components/App.js ***!
+  \***********************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _react = __webpack_require__(/*! react */ 1);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Footer = __webpack_require__(/*! ./Footer.jsx */ 220);
+	var _Footer = __webpack_require__(/*! ./Footer */ 220);
 	
 	var _Footer2 = _interopRequireDefault(_Footer);
 	
-	var _AddTodo = __webpack_require__(/*! ../container/AddTodo.jsx */ 224);
+	var _AddTodo = __webpack_require__(/*! ../containers/AddTodo */ 224);
 	
 	var _AddTodo2 = _interopRequireDefault(_AddTodo);
 	
-	var _VisibleTodoList = __webpack_require__(/*! ../container/VisibleTodoList.jsx */ 225);
+	var _VisibleTodoList = __webpack_require__(/*! ../containers/VisibleTodoList */ 225);
 	
 	var _VisibleTodoList2 = _interopRequireDefault(_VisibleTodoList);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var App = function App() {
-	    return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(_AddTodo2.default, null),
-	        _react2.default.createElement(_VisibleTodoList2.default, null),
-	        _react2.default.createElement(_Footer2.default, null)
-	    );
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(_AddTodo2.default, null),
+	    _react2.default.createElement(_VisibleTodoList2.default, null),
+	    _react2.default.createElement(_Footer2.default, null)
+	  );
 	};
 	
 	exports.default = App;
 
 /***/ },
 /* 220 */
-/*!***************************************!*\
-  !*** ./src/app/components/Footer.jsx ***!
-  \***************************************/
+/*!**************************************!*\
+  !*** ./src/app/components/Footer.js ***!
+  \**************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _react = __webpack_require__(/*! react */ 1);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _FilterLink = __webpack_require__(/*! ../container/FilterLink.jsx */ 221);
+	var _FilterLink = __webpack_require__(/*! ../containers/FilterLink */ 221);
 	
 	var _FilterLink2 = _interopRequireDefault(_FilterLink);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var Footer = function Footer() {
-	    return _react2.default.createElement(
-	        'p',
-	        null,
-	        'Show:',
-	        " ",
-	        _react2.default.createElement(
-	            _FilterLink2.default,
-	            { filter: 'SHOW_ALL' },
-	            'All'
-	        ),
-	        ", ",
-	        _react2.default.createElement(
-	            _FilterLink2.default,
-	            { filter: 'SHOW_ACTIVE' },
-	            'Active'
-	        ),
-	        ", ",
-	        _react2.default.createElement(
-	            _FilterLink2.default,
-	            { filter: 'SHOW_COMPLETED' },
-	            'Completed'
-	        )
-	    );
+	  return _react2.default.createElement(
+	    'p',
+	    null,
+	    'Show:',
+	    " ",
+	    _react2.default.createElement(
+	      _FilterLink2.default,
+	      { filter: 'SHOW_ALL' },
+	      'All'
+	    ),
+	    ", ",
+	    _react2.default.createElement(
+	      _FilterLink2.default,
+	      { filter: 'SHOW_ACTIVE' },
+	      'Active'
+	    ),
+	    ", ",
+	    _react2.default.createElement(
+	      _FilterLink2.default,
+	      { filter: 'SHOW_COMPLETED' },
+	      'Completed'
+	    )
+	  );
 	};
 	
 	exports.default = Footer;
@@ -24630,38 +24625,38 @@
 /***/ },
 /* 221 */
 /*!******************************************!*\
-  !*** ./src/app/container/FilterLink.jsx ***!
+  !*** ./src/app/containers/FilterLink.js ***!
   \******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 178);
 	
-	var _index = __webpack_require__(/*! ../action/index.jsx */ 222);
+	var _actions = __webpack_require__(/*! ../actions */ 222);
 	
-	var _Link = __webpack_require__(/*! ../components/Link.jsx */ 223);
+	var _Link = __webpack_require__(/*! ../components/Link */ 223);
 	
 	var _Link2 = _interopRequireDefault(_Link);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var mapStateToProps = function mapStateToProps(state, ownProps) {
-	    return {
-	        active: ownProps.filter === state.visibilityFilter
-	    };
+	  return {
+	    active: ownProps.filter === state.visibilityFilter
+	  };
 	};
 	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
-	    return {
-	        onClick: function onClick() {
-	            dispatch((0, _index.setVisibilityFilter)(ownProps.filter));
-	        }
-	    };
+	  return {
+	    onClick: function onClick() {
+	      dispatch((0, _actions.setVisibilityFilter)(ownProps.filter));
+	    }
+	  };
 	};
 	
 	var FilterLink = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_Link2.default);
@@ -24671,52 +24666,49 @@
 /***/ },
 /* 222 */
 /*!**********************************!*\
-  !*** ./src/app/action/index.jsx ***!
+  !*** ./src/app/actions/index.js ***!
   \**********************************/
 /***/ function(module, exports) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
-	/**
-	 * Created by mustang on 01/03/17.
-	 */
 	var nextTodoId = 0;
 	var addTodo = exports.addTodo = function addTodo(text) {
-	    return {
-	        type: 'ADD_TODO',
-	        id: nextTodoId++,
-	        text: text
-	    };
+	  return {
+	    type: 'ADD_TODO',
+	    id: nextTodoId++,
+	    text: text
+	  };
 	};
 	
 	var setVisibilityFilter = exports.setVisibilityFilter = function setVisibilityFilter(filter) {
-	    return {
-	        type: 'SET_VISIBILITY_FILTER',
-	        filter: filter
-	    };
+	  return {
+	    type: 'SET_VISIBILITY_FILTER',
+	    filter: filter
+	  };
 	};
 	
 	var toggleTodo = exports.toggleTodo = function toggleTodo(id) {
-	    return {
-	        type: 'TOGGLE_TODO',
-	        id: id
-	    };
+	  return {
+	    type: 'TOGGLE_TODO',
+	    id: id
+	  };
 	};
 
 /***/ },
 /* 223 */
-/*!*************************************!*\
-  !*** ./src/app/components/Link.jsx ***!
-  \*************************************/
+/*!************************************!*\
+  !*** ./src/app/components/Link.js ***!
+  \************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _react = __webpack_require__(/*! react */ 1);
@@ -24725,49 +24717,50 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var link = function link(_ref) {
-	    var active = _ref.active,
-	        children = _ref.children,
-	        _onClick = _ref.onClick;
+	var Link = function Link(_ref) {
+	  var active = _ref.active,
+	      children = _ref.children,
+	      _onClick = _ref.onClick;
 	
-	    if (active) {
-	        return _react2.default.createElement(
-	            "span",
-	            null,
-	            children
-	        );
-	    }
-	
+	  if (active) {
 	    return _react2.default.createElement(
-	        "a",
-	        { href: "#",
-	            onClick: function onClick(e) {
-	                e.preventDefault();
-	                _onClick();
-	            }
-	        },
-	        children
+	      "span",
+	      null,
+	      children
 	    );
-	};
-	link.propTypes = {
-	    active: _react.PropTypes.bool.isRequired,
-	    children: _react.PropTypes.node.isRequired,
-	    onClick: _react.PropTypes.func.isRequired
+	  }
+	
+	  return _react2.default.createElement(
+	    "a",
+	    { href: "#",
+	      onClick: function onClick(e) {
+	        e.preventDefault();
+	        _onClick();
+	      }
+	    },
+	    children
+	  );
 	};
 	
-	exports.default = link;
+	Link.propTypes = {
+	  active: _react.PropTypes.bool.isRequired,
+	  children: _react.PropTypes.node.isRequired,
+	  onClick: _react.PropTypes.func.isRequired
+	};
+	
+	exports.default = Link;
 
 /***/ },
 /* 224 */
 /*!***************************************!*\
-  !*** ./src/app/container/AddTodo.jsx ***!
+  !*** ./src/app/containers/AddTodo.js ***!
   \***************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _react = __webpack_require__(/*! react */ 1);
@@ -24776,38 +24769,38 @@
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 178);
 	
-	var _index = __webpack_require__(/*! ../action/index.jsx */ 222);
+	var _actions = __webpack_require__(/*! ../actions */ 222);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var AddTodo = function AddTodo(_ref) {
-	    var dispatch = _ref.dispatch;
+	  var dispatch = _ref.dispatch;
 	
-	    var input = void 0;
+	  var input = void 0;
 	
-	    return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	            'form',
-	            { onSubmit: function onSubmit(e) {
-	                    e.preventDefault();
-	                    if (!input.value.trim()) {
-	                        return;
-	                    }
-	                    dispatch((0, _index.addTodo)(input.value));
-	                    input.value = '';
-	                } },
-	            _react2.default.createElement('input', { ref: function ref(node) {
-	                    input = node;
-	                } }),
-	            _react2.default.createElement(
-	                'button',
-	                { type: 'submit' },
-	                'Add Todo'
-	            )
-	        )
-	    );
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'form',
+	      { onSubmit: function onSubmit(e) {
+	          e.preventDefault();
+	          if (!input.value.trim()) {
+	            return;
+	          }
+	          dispatch((0, _actions.addTodo)(input.value));
+	          input.value = '';
+	        } },
+	      _react2.default.createElement('input', { ref: function ref(node) {
+	          input = node;
+	        } }),
+	      _react2.default.createElement(
+	        'button',
+	        { type: 'submit' },
+	        'Add Todo'
+	      )
+	    )
+	  );
 	};
 	AddTodo = (0, _reactRedux.connect)()(AddTodo);
 	
@@ -24816,53 +24809,53 @@
 /***/ },
 /* 225 */
 /*!***********************************************!*\
-  !*** ./src/app/container/VisibleTodoList.jsx ***!
+  !*** ./src/app/containers/VisibleTodoList.js ***!
   \***********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 178);
 	
-	var _index = __webpack_require__(/*! ../action/index.jsx */ 222);
+	var _actions = __webpack_require__(/*! ../actions */ 222);
 	
-	var _TodoList = __webpack_require__(/*! ../components/TodoList.jsx */ 226);
+	var _TodoList = __webpack_require__(/*! ../components/TodoList */ 226);
 	
 	var _TodoList2 = _interopRequireDefault(_TodoList);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var getVisibleTodos = function getVisibleTodos(todos, filter) {
-	    switch (filter) {
-	        case 'SHOW_ALL':
-	            return todos;
-	        case 'SHOW_COMPLETED':
-	            return todos.filter(function (t) {
-	                return t.completed;
-	            });
-	        case 'SHOW_ACTIVE':
-	            return todos.filter(function (t) {
-	                return !t.completed;
-	            });
-	    }
+	  switch (filter) {
+	    case 'SHOW_ALL':
+	      return todos;
+	    case 'SHOW_COMPLETED':
+	      return todos.filter(function (t) {
+	        return t.completed;
+	      });
+	    case 'SHOW_ACTIVE':
+	      return todos.filter(function (t) {
+	        return !t.completed;
+	      });
+	  }
 	};
 	
 	var mapStateToProps = function mapStateToProps(state) {
-	    return {
-	        todos: getVisibleTodos(state.todos, state.visibilityFilter)
-	    };
+	  return {
+	    todos: getVisibleTodos(state.todos, state.visibilityFilter)
+	  };
 	};
 	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	    return {
-	        onTodoClick: function onTodoClick(id) {
-	            dispatch((0, _index.toggleTodo)(id));
-	        }
-	    };
+	  return {
+	    onTodoClick: function onTodoClick(id) {
+	      dispatch((0, _actions.toggleTodo)(id));
+	    }
+	  };
 	};
 	
 	var VisibleTodoList = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_TodoList2.default);
@@ -24871,15 +24864,15 @@
 
 /***/ },
 /* 226 */
-/*!*****************************************!*\
-  !*** ./src/app/components/TodoList.jsx ***!
-  \*****************************************/
+/*!****************************************!*\
+  !*** ./src/app/components/TodoList.js ***!
+  \****************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -24888,51 +24881,52 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _todo = __webpack_require__(/*! ./todo.jsx */ 227);
+	var _Todo = __webpack_require__(/*! ./Todo */ 227);
 	
-	var _todo2 = _interopRequireDefault(_todo);
+	var _Todo2 = _interopRequireDefault(_Todo);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var TodoList = function TodoList(_ref) {
-	    var todos = _ref.todos,
-	        onTodoClick = _ref.onTodoClick;
-	    return _react2.default.createElement(
-	        'ul',
-	        null,
-	        todos.map(function (todo) {
-	            return _react2.default.createElement(_todo2.default, _extends({
-	                key: todo.id
-	            }, todo, {
-	                onClick: function onClick() {
-	                    return onTodoClick(todo.id);
-	                }
-	            }));
-	        })
-	    );
+	  var todos = _ref.todos,
+	      onTodoClick = _ref.onTodoClick;
+	  return _react2.default.createElement(
+	    'ul',
+	    null,
+	    todos.map(function (todo) {
+	      return _react2.default.createElement(_Todo2.default, _extends({
+	        key: todo.id
+	      }, todo, {
+	        onClick: function onClick() {
+	          return onTodoClick(todo.id);
+	        }
+	      }));
+	    })
+	  );
 	};
+	
 	TodoList.propTypes = {
-	    todos: _react.PropTypes.arrayOf(_react.PropTypes.shape({
-	        id: _react.PropTypes.number.isRequired,
-	        completed: _react.PropTypes.bool.isRequired,
-	        text: _react.PropTypes.string.isRequired
-	    }).isRequired).isRequired,
-	    onTodoClick: _react.PropTypes.func.isRequired
+	  todos: _react.PropTypes.arrayOf(_react.PropTypes.shape({
+	    id: _react.PropTypes.number.isRequired,
+	    completed: _react.PropTypes.bool.isRequired,
+	    text: _react.PropTypes.string.isRequired
+	  }).isRequired).isRequired,
+	  onTodoClick: _react.PropTypes.func.isRequired
 	};
 	
 	exports.default = TodoList;
 
 /***/ },
 /* 227 */
-/*!*************************************!*\
-  !*** ./src/app/components/todo.jsx ***!
-  \*************************************/
+/*!************************************!*\
+  !*** ./src/app/components/Todo.js ***!
+  \************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _react = __webpack_require__(/*! react */ 1);
@@ -24942,25 +24936,25 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var Todo = function Todo(_ref) {
-	    var onClick = _ref.onClick,
-	        completed = _ref.completed,
-	        text = _ref.text;
-	    return _react2.default.createElement(
-	        'li',
-	        {
-	            onClick: onClick,
-	            style: {
-	                textDecoration: completed ? 'line-through' : 'none'
-	            }
-	        },
-	        text
-	    );
+	  var onClick = _ref.onClick,
+	      completed = _ref.completed,
+	      text = _ref.text;
+	  return _react2.default.createElement(
+	    'li',
+	    {
+	      onClick: onClick,
+	      style: {
+	        textDecoration: completed ? 'line-through' : 'none'
+	      }
+	    },
+	    text
+	  );
 	};
 	
 	Todo.propTypes = {
-	    onClick: _react.PropTypes.func.isRequired,
-	    completed: _react.PropTypes.bool.isRequired,
-	    text: _react.PropTypes.string.isRequired
+	  onClick: _react.PropTypes.func.isRequired,
+	  completed: _react.PropTypes.bool.isRequired,
+	  text: _react.PropTypes.string.isRequired
 	};
 	
 	exports.default = Todo;
