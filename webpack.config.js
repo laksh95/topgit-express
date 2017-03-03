@@ -1,9 +1,14 @@
+var path=require('path')
+var SRC_DIR=path.resolve(__dirname + "/src")
+var DIST_DIR=path.resolve(__dirname + "/app")
 var config={
-	entry:'./main.js',
+	entry:SRC_DIR + '/app/index.jsx',
 	output:{
-		path:'/',
-		filename:'index.js'
+		path:DIST_DIR +'/app',
+		filename:'bundle.js',
+		publicPath:'/app/'
 	},
+	devTool:"source-map",
 	devServer:{
 		inline:true,
 		port:8080

@@ -1,0 +1,44 @@
+[
+{
+"food_group_id": "eb82c7cc-3dc9-11e6-a9f9-28e347",
+"food_group_name": "Signature chicken sandwiches",
+"food_group_pic": "https://tabletopmenu.s3-us-west-2.amazonaws.com/easyPie/Pasta.jpg?AWSAccessKeyId=AKIAJBLST2F5EFKIZGXQ&Expires=2088528598&Signature=Wso3hpOhyBfOAg99RgWRIV51O0I%3D",
+"createdAt": null,
+"updatedAt": null
+},
+{
+"food_group_id": "eb8e98ad-3dc9-11e6-a9f9-28e347",
+"food_group_name": "Signature Specialty Sandwiches",
+"food_group_pic": "https://tabletopmenu.s3-us-west-2.amazonaws.com/easyPie/Soups.jpg?AWSAccessKeyId=AKIAJBLST2F5EFKIZGXQ&Expires=2088528598&Signature=MaYLGMB49hUba8a6dQ3zrqz3OSc%3D",
+"createdAt": null,
+"updatedAt": null
+},
+{
+"food_group_id": "eb9fa7e9-3dc9-11e6-a9f9-28e347",
+"food_group_name": "Signature Burgers",
+"food_group_pic": "https://tabletopmenu.s3-us-west-2.amazonaws.com/easyPie/burger.jpg?AWSAccessKeyId=AKIAJBLST2F5EFKIZGXQ&Expires=2088528598&Signature=n57zJ81GB6sss%2Bx%2Bq7uRnI8k2YA%3D",
+"createdAt": null,
+"updatedAt": null
+},
+{
+"food_group_id": "ebaeef2c-3dc9-11e6-a9f9-28e347",
+"food_group_name": "Dessert  Pies",
+"food_group_pic": "https://tabletopmenu.s3-us-west-2.amazonaws.com/easyPie/salad.jpg?AWSAccessKeyId=AKIAJBLST2F5EFKIZGXQ&Expires=2088528598&Signature=R8yum1ydbGhLvfHXEuiamJx%2FAjg%3D",
+"createdAt": null,
+"updatedAt": null
+},
+{
+"food_group_id": "ebb41939-3dc9-11e6-a9f9-28e347",
+"food_group_name": "Signature Pies",
+"food_group_pic": "https://tabletopmenu.s3-us-west-2.amazonaws.com/easyPie/Soups.jpg?AWSAccessKeyId=AKIAJBLST2F5EFKIZGXQ&Expires=2088528598&Signature=MaYLGMB49hUba8a6dQ3zrqz3OSc%3D",
+"createdAt": null,
+"updatedAt": null
+},
+{
+"food_group_id": "ebb935ad-3dc9-11e6-a9f9-28e347",
+"food_group_name": "Signature Turkey Burgers",
+"food_group_pic": "https://tabletopmenu.s3-us-west-2.amazonaws.com/easyPie/Pasta.jpg?AWSAccessKeyId=AKIAJBLST2F5EFKIZGXQ&Expires=2088528598&Signature=Wso3hpOhyBfOAg99RgWRIV51O0I%3D",
+"createdAt": null,
+"updatedAt": null
+}
+]
