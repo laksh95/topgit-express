@@ -1,28 +1,28 @@
 import React from 'react'
-import {Grid,Row,Col,Thumbnail,Button,Glyphicon} from 'react-bootstrap'
+import Items from './Items.jsx'
+import {Tabs,Tab} from 'react-bootstrap'
 const Menu = (props) =>{
+	console.log('log from menu',props.foodMap)
 	return(
-			<div>
-				<Grid>
-					<Row>{
-                        props.foodMap.map(function (data, index) {
-                            return (
-								<Col xs={12} md={3} key={index}>
-									<Thumbnail src={data.food_item_pic} alt="image">
-										<h3>{data.food_item_name}</h3>
-										<h5>${data.food_item_price}</h5>
-										<p>
-											<Button><Glyphicon glyph="plus"/></Button>
-										</p>
-									</Thumbnail>
-								</Col>
-                            )
-                        })
-                    }
-                    </Row>
-				</Grid>
-			</div>
+		<div className="container">
+			<Tabs defaultActiveKey={1} id="menuTabs">{
+                /***************************returning <Tab> and <Menu> together so that each
+                 ***************************tab menu has its own food menu, i.e each tab menu
+                 ***************************has its own child. Sending food_group_id so that
+                 **************************************************************************/
+                props.foodMap.map(function(data,i){
+                    return(<Tab eventKey={i} key={i} title={data.food_group_name}>
+							<Items currentGroup={data.food_group_id} /></Tab>
+                    )
+                })
+            }
+			</Tabs>
+		</div>
 	)
 }
 
 export default Menu
+
+
+
+

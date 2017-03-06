@@ -4,16 +4,19 @@ import Menu from '../components/Menu.jsx'
 import {connect} from 'react-redux'
 import addMenu from '../actions/foodAction.jsx'
 class App extends React.Component{
+	componentWillMount(){
+		this.props.addMenu()
+	}
 	render(){
 		return(
 			<div>
 				<Header />
-
+				<Menu foodMap={this.props.food.foodGroups} />
 			</div>
 			)
 	}
 }
-/*
+
 const mapDispatchToProps = (dispatch) =>{
 	return{
 	addMenu:()=>{
@@ -21,11 +24,11 @@ const mapDispatchToProps = (dispatch) =>{
 		}
 	}
 }
-    return{
-        const mapStateToProps = (state) =>{
+
+const mapStateToProps = (state) =>{
+	return{
             food:state.addMenu
     }
 
 }
-connect(mapStateToProps,mapDispatchToProps)(App)*/
-export default App
+export default connect(mapStateToProps,mapDispatchToProps)(App)
