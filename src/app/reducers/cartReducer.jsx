@@ -54,7 +54,7 @@ const updateCart = (state=cart,action) =>{
 					else
 						items.splice(index,1)
 				}
-			}j
+			}
 			state={
 				foodItems:items
 			}
