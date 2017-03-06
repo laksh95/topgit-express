@@ -61,7 +61,7 @@
 	
 	var _app2 = _interopRequireDefault(_app);
 	
-	var _store = __webpack_require__(/*! ./store.jsx */ 488);
+	var _store = __webpack_require__(/*! ./store.jsx */ 489);
 	
 	var _store2 = _interopRequireDefault(_store);
 	
@@ -22069,7 +22069,7 @@
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 450);
 	
-	var _foodAction = __webpack_require__(/*! ../actions/foodAction.jsx */ 487);
+	var _foodAction = __webpack_require__(/*! ../actions/foodAction.jsx */ 488);
 	
 	var _foodAction2 = _interopRequireDefault(_foodAction);
 	
@@ -42415,7 +42415,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Items = __webpack_require__(/*! ./Items.jsx */ 448);
+	var _Items = __webpack_require__(/*! ../containers/Items.jsx */ 448);
 	
 	var _Items2 = _interopRequireDefault(_Items);
 	
@@ -42452,7 +42452,7 @@
 /***/ },
 /* 448 */
 /*!**************************************!*\
-  !*** ./src/app/components/Items.jsx ***!
+  !*** ./src/app/containers/Items.jsx ***!
   \**************************************/
 /***/ function(module, exports, __webpack_require__) {
 
@@ -42474,6 +42474,10 @@
 	
 	var _itemAction2 = _interopRequireDefault(_itemAction);
 	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 450);
+	
+	var _cartActions = __webpack_require__(/*! ../actions/cartActions.jsx */ 487);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -42485,10 +42489,15 @@
 	var Items = function (_React$Component) {
 	    _inherits(Items, _React$Component);
 	
-	    function Items() {
+	    function Items(props) {
 	        _classCallCheck(this, Items);
 	
-	        return _possibleConstructorReturn(this, (Items.__proto__ || Object.getPrototypeOf(Items)).apply(this, arguments));
+	        var _this = _possibleConstructorReturn(this, (Items.__proto__ || Object.getPrototypeOf(Items)).call(this, props));
+	
+	        _this.state = {
+	            cartItems: []
+	        };
+	        return _this;
 	    }
 	
 	    _createClass(Items, [{
@@ -42497,8 +42506,41 @@
 	            this.props.getItems();
 	        }
 	    }, {
+	        key: 'addItemsToCart',
+	        value: function addItemsToCart(data) {
+	            var cart = this.state.cartItems;
+	            var count = 0;
+	            var ZERO = 0;
+	            var price = data.food_group_price;
+	            for (var index in cart) {
+	                if (cart[index].itemID === data.food_group_id) {
+	                    count = 1;
+	                    cart[index].quantity += 1;
+	                }
+	            }
+	            if (ZERO === count) {
+	                cart.push({
+	                    itemID: data.food_group_id,
+	                    itemName: data.food_group_name,
+	                    quantity: 1,
+	                    price: price
+	                });
+	            }
+	            this.setState({
+	                cartItems: cart
+	            });
+	            if (ZERO === count) {
+	                this.props.addToCart();
+	            } else {
+	                this.props.increaseCart();
+	            }
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var _this2 = this;
+	
+	            console.log('items.jsx', this.props.foodItems);
 	            var that = this;
 	            return _react2.default.createElement(
 	                'div',
@@ -42509,7 +42551,7 @@
 	                    _react2.default.createElement(
 	                        _reactBootstrap.Row,
 	                        null,
-	                        props.foodItems.map(function (data, index) {
+	                        that.props.foodItems.foodItems.map(function (data, index) {
 	                            if (data.food_group_id === that.props.currentGroup) {
 	                                return _react2.default.createElement(
 	                                    _reactBootstrap.Col,
@@ -42533,7 +42575,9 @@
 	                                            null,
 	                                            _react2.default.createElement(
 	                                                _reactBootstrap.Button,
-	                                                null,
+	                                                { id: index, onClick: function onClick() {
+	                                                        _this2.addItemsToCart(data);
+	                                                    } },
 	                                                _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'plus' })
 	                                            )
 	                                        )
@@ -42551,16 +42595,26 @@
 	}(_react2.default.Component);
 	
 	var mapStateToProps = function mapStateToProps(state) {
-	    foodItems: state.addItems;
+	    return {
+	        foodItems: state.addItems,
+	        cartItems: state.updateCart
+	
+	    };
 	};
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	    return {
 	        getItems: function getItems() {
 	            dispatch((0, _itemAction2.default)());
+	        },
+	        addToCart: function addToCart() {
+	            dispatch((0, _cartActions.addToCart)(undefined.state.cartItems));
+	        },
+	        increaseCart: function increaseCart() {
+	            dispatch((0, _cartActions.increaseQuantity)(undefined.state.cartItems));
 	        }
 	    };
 	};
-	exports.default = connect(mapStateToProps, mapDispatchToProps)(Items);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Items);
 
 /***/ },
 /* 449 */
@@ -42576,12 +42630,12 @@
 	});
 	/*This action is used to set the state of all the available food Items*/
 	var addFoodItems = function addFoodItems() {
-		axios.get('http://ec2-54-165-240-14.compute-1.amazonaws.com:3000/api/foodItem').then(function (data) {
-			return {
-				type: 'ITEMS',
-				payload: data
-			};
-		});
+		return {
+			type: 'FOODITEMS',
+			payload: axios.get('http://ec2-54-165-240-14.compute-1.amazonaws.com:3000/api/foodItem').then(function (data) {
+				return data.data;
+			}).catch()
+		};
 	};
 	exports.default = addFoodItems;
 
@@ -44896,6 +44950,41 @@
 
 /***/ },
 /* 487 */
+/*!*****************************************!*\
+  !*** ./src/app/actions/cartActions.jsx ***!
+  \*****************************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.addToCart = addToCart;
+	exports.increaseQuantity = increaseQuantity;
+	exports.decreaseQuantity = decreaseQuantity;
+	function addToCart(data) {
+	
+		return {
+			type: 'ADD_TO_CART',
+			payload: data
+		};
+	}
+	function increaseQuantity(data) {
+		return {
+			type: 'INCREASE',
+			payload: data
+		};
+	}
+	function decreaseQuantity(data) {
+		return {
+			type: 'DECREASE',
+			payload: data
+		};
+	}
+
+/***/ },
+/* 488 */
 /*!****************************************!*\
   !*** ./src/app/actions/foodAction.jsx ***!
   \****************************************/
@@ -44918,7 +45007,7 @@
 	exports.default = addMenu;
 
 /***/ },
-/* 488 */
+/* 489 */
 /*!***************************!*\
   !*** ./src/app/store.jsx ***!
   \***************************/
@@ -44932,23 +45021,23 @@
 	
 	var _redux = __webpack_require__(/*! redux */ 460);
 	
-	var _reduxThunk = __webpack_require__(/*! redux-thunk */ 489);
+	var _reduxThunk = __webpack_require__(/*! redux-thunk */ 490);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
-	var _cartReducer = __webpack_require__(/*! ./reducers/cartReducer.jsx */ 490);
+	var _cartReducer = __webpack_require__(/*! ./reducers/cartReducer.jsx */ 491);
 	
 	var _cartReducer2 = _interopRequireDefault(_cartReducer);
 	
-	var _foodReducer = __webpack_require__(/*! ./reducers/foodReducer.jsx */ 491);
+	var _foodReducer = __webpack_require__(/*! ./reducers/foodReducer.jsx */ 492);
 	
 	var _foodReducer2 = _interopRequireDefault(_foodReducer);
 	
-	var _itemReducer = __webpack_require__(/*! ./reducers/itemReducer.jsx */ 492);
+	var _itemReducer = __webpack_require__(/*! ./reducers/itemReducer.jsx */ 493);
 	
 	var _itemReducer2 = _interopRequireDefault(_itemReducer);
 	
-	var _reduxPromiseMiddleware = __webpack_require__(/*! redux-promise-middleware */ 493);
+	var _reduxPromiseMiddleware = __webpack_require__(/*! redux-promise-middleware */ 494);
 	
 	var _reduxPromiseMiddleware2 = _interopRequireDefault(_reduxPromiseMiddleware);
 	
@@ -44962,7 +45051,7 @@
 	exports.default = store;
 
 /***/ },
-/* 489 */
+/* 490 */
 /*!************************************!*\
   !*** ./~/redux-thunk/lib/index.js ***!
   \************************************/
@@ -44993,7 +45082,7 @@
 	exports['default'] = thunk;
 
 /***/ },
-/* 490 */
+/* 491 */
 /*!******************************************!*\
   !*** ./src/app/reducers/cartReducer.jsx ***!
   \******************************************/
@@ -45031,7 +45120,7 @@
 				items = cart.foodItems;
 				for (var index in items) {
 					if (items[index].itemID === action.payload.itemID) {
-						items[index].quantity = items[index].quantiy + 1;
+						items[index].quantity = items[index].quantity + 1;
 					}
 				}
 				state = {
@@ -45057,7 +45146,7 @@
 	exports.default = updateCart;
 
 /***/ },
-/* 491 */
+/* 492 */
 /*!******************************************!*\
   !*** ./src/app/reducers/foodReducer.jsx ***!
   \******************************************/
@@ -45076,7 +45165,6 @@
 		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : menu;
 		var action = arguments[1];
 	
-		console.log('', action.payload);
 		switch (action.type) {
 			case 'MENU_FULFILLED':
 				state = {
@@ -45091,7 +45179,7 @@
 	exports.default = addMenu;
 
 /***/ },
-/* 492 */
+/* 493 */
 /*!******************************************!*\
   !*** ./src/app/reducers/itemReducer.jsx ***!
   \******************************************/
@@ -45110,7 +45198,7 @@
 		var action = arguments[1];
 	
 		switch (action.type) {
-			case 'ITEMS':
+			case 'FOODITEMS_FULFILLED':
 				state = {
 					foodItems: action.payload
 				};
@@ -45123,7 +45211,7 @@
 	exports.default = addItems;
 
 /***/ },
-/* 493 */
+/* 494 */
 /*!**************************************************!*\
   !*** ./~/redux-promise-middleware/dist/index.js ***!
   \**************************************************/
@@ -45143,7 +45231,7 @@
 	
 	exports.default = promiseMiddleware;
 	
-	var _isPromise = __webpack_require__(/*! ./isPromise */ 494);
+	var _isPromise = __webpack_require__(/*! ./isPromise */ 495);
 	
 	var _isPromise2 = _interopRequireDefault(_isPromise);
 	
@@ -45300,7 +45388,7 @@
 	}
 
 /***/ },
-/* 494 */
+/* 495 */
 /*!******************************************************!*\
   !*** ./~/redux-promise-middleware/dist/isPromise.js ***!
   \******************************************************/

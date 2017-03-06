@@ -1,8 +1,7 @@
 import React from 'react'
-import Items from './Items.jsx'
+import Items from '../containers/Items.jsx'
 import {Tabs,Tab} from 'react-bootstrap'
 const Menu = (props) =>{
-	console.log('log from menu',props.foodMap)
 	return(
 		<div className="container">
 			<Tabs defaultActiveKey={1} id="menuTabs">{
