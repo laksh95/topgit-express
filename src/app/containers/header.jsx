@@ -26,9 +26,9 @@ class Header extends React.Component{
 			let modalClose = () => this.setState({modalShow:false})
             return (
 				<div className="headerBox">
-					<Button className="menuButton">
-						<Link to="/"><Glyphicon glyph="menu-hamburger"/></Link>
-					</Button>
+					<Link to="/"><Button className="menuButton">
+						<Glyphicon glyph="menu-hamburger"/>
+					</Button></Link>
 					<label>Food Menu</label>
 					<Button className="cart" onClick={()=>{
 						this.setState({
@@ -60,9 +60,3 @@ const mapDispatchToProps=(dispatch)=>{
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Header)
-/*<Cart show={this.state.modalShow} onHide={modalClose} cartDetails={this.props.cart}/>*/
-/*onClick={
-					() => {
-						this.setState({modalShow:true})
-					}
-				}*/

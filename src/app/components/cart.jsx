@@ -1,5 +1,6 @@
 import React from 'react'
 import {Modal, Button} from 'react-bootstrap'
+import {Link} from 'react-router'
 class Cart extends React.Component{
     constructor(props) {
         super(props)
@@ -65,7 +66,8 @@ class Cart extends React.Component{
                 </Modal.Body>
                 <Modal.Footer>
                     <Button color="primary" onClick={that.props.onHide}>Add Items</Button>
-                    <Button color="primary" onClick={that.props.onHide}>Checkout</Button>
+                   <Link
+                        to="/checkout"> <Button color="primary" onClick={that.props.onHide}>Checkout</Button></Link>
                 </Modal.Footer>
             </Modal>
         );

@@ -3,6 +3,7 @@ import {Grid,Row,Col,Thumbnail,Button,Glyphicon} from 'react-bootstrap'
 import addFoodItems from '../actions/itemAction.jsx'
 import {connect} from 'react-redux'
 import {addToCart} from '../actions/cartActions.jsx'
+import LazyLoad from 'react-lazyload'
 class Items extends React.Component{
     constructor(props){
         super(props)
@@ -41,6 +42,7 @@ class Items extends React.Component{
                                                 }><Glyphicon glyph="plus"/></Button>
                                             </p>
                                         </Thumbnail>
+
                                     </Col>
                                 )
                             }
