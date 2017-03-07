@@ -49,9 +49,9 @@ const updateCart = (state=cart,action) =>{
 			 items=cart.foodItems
 			for(let index in items){
 				if(items[index].itemID===action.payload.itemID){
-					if(items[index].quantity>0)
+					if(items[index].quantity>=1)
 						items[index].quantity=items[index].quantity-1
-					else
+					if(items[index].quantity==0)
 						items.splice(index,1)
 				}
 			}
